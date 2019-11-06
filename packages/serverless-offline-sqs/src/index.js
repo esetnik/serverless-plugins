@@ -100,14 +100,14 @@ class ServerlessOfflineSQS {
 
     const __function = this.service.getFunction(functionName);
 
-    const {env} = process;
-    const functionEnv = assignAll([
-      {AWS_REGION: get('service.provider.region', this)},
-      env,
-      get('service.provider.environment', this),
-      get('environment', __function)
-    ]);
-    process.env = functionEnv;
+    // const {env} = process;
+    // const functionEnv = assignAll([
+    //   {AWS_REGION: get('service.provider.region', this)},
+    //   env,
+    //   get('service.provider.environment', this),
+    //   get('environment', __function)
+    // ]);
+    // process.env = functionEnv;
 
     const serviceRuntime = this.service.provider.runtime;
     const servicePath = join(this.serverless.config.servicePath, location);
@@ -162,7 +162,7 @@ class ServerlessOfflineSQS {
       x.then(lambdaContext.succeed).catch(lambdaContext.fail);
     else if (x instanceof Error) lambdaContext.fail(x);
 
-    process.env = env;
+    // process.env = env;
   }
 
   async createQueueReadable(functionName, queueEvent) {
